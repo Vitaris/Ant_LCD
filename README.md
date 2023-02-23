@@ -1,5 +1,5 @@
 # Ant LCD
-HD44780 LCD Display Library for Raspberry Pico
+Lightweight HD44780 LCD Display Library for Raspberry Pico with basic features
 
 *Refactor of Python library, Original lib:
 https://github.com/Bardia-Afshar/RP-Pico-LCD*
