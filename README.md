@@ -9,3 +9,5 @@ https://github.com/Bardia-Afshar/RP-Pico-LCD*
 * Multi-instance - Possibility of use of multiple displays
 
 ## Work in progress...
+
+![schema](https://github.com/Vitaris/Ant_LCD/blob/main/img/demo_schema.png)
