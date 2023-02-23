@@ -151,6 +151,41 @@ extern "C" {
 	 */
 	void writeText(lcd_t lcd, char string[]);
 
+	/**
+	 * @brief Puts Int on LCD
+	 * 
+	 * @param lcd LCD controller handle
+	 * @param x X position
+	 * @param y Y position
+	 * @param max_length Max length of the number
+	 * @param number Int to be displayed
+	 * 
+	 */
+	void int2LCD(lcd_t lcd, uint8_t x, uint8_t y, uint8_t max_length, int number);
+
+	/**
+	 * @brief Puts Float on LCD
+	 * 
+	 * @param lcd LCD controller handle
+	 * @param x X position
+	 * @param y Y position
+	 * @param max_length Max length of the number
+	 * @param number Float to be displayed
+	 * 
+	 */
+	void float2LCD(lcd_t lcd, uint8_t x, uint8_t y, uint8_t max_length, float number);
+
+	/**
+	 * @brief Puts String on LCD
+	 * 
+	 * @param lcd LCD controller handle
+	 * @param x X position
+	 * @param y Y position
+	 * @param string String to be displayed
+	 * 
+	 */
+	void string2LCD(lcd_t lcd, uint8_t x, uint8_t y, char string[]);
+
 
 
 #ifdef	__cplusplus

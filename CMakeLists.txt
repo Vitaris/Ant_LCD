@@ -11,13 +11,6 @@ add_executable(antLCD
     ant_lcd.c
 )
 
-# enable usb output, disable uart output
-pico_enable_stdio_usb(antLCD 1)
-pico_enable_stdio_uart(antLCD 0)
-
-pico_enable_stdio_usb(antLCD 1)
-pico_enable_stdio_uart(antLCD 1)
-
 pico_add_extra_outputs(antLCD)
 
 target_link_libraries(antLCD pico_stdlib)

@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include "ant_lcd.h"
 #include "pico/stdlib.h"
+#include <string.h>
 
 lcd_t lcd_create(lcd_t lcd, uint32_t RS, uint32_t RW, uint32_t EN, uint32_t D4, uint32_t D5,
  				uint32_t D6, uint32_t D7, uint32_t COL, uint32_t ROW)
@@ -154,3 +155,28 @@ void writeText(lcd_t lcd, char string[])
 		i++;
 	}
 }
+
+void int2LCD(lcd_t lcd, uint8_t x, uint8_t y, uint8_t max_length, int number)
+{
+    gotoxy(lcd, x, y); 
+    char* str;
+    asprintf (&str, "%*i", max_length, number);
+    writeText(lcd, str);
+    free(str);
+}
+
+void float2LCD(lcd_t lcd, uint8_t x, uint8_t y, uint8_t max_length, float number)
+{
+    gotoxy(lcd, x, y); 
+    char* str;
+    asprintf (&str, "%*.2f", max_length, number);
+    writeText(lcd, str);
+    free(str);
+}
+
+void string2LCD(lcd_t lcd, uint8_t x, uint8_t y, char string[])
+{
+    gotoxy(lcd, x, y); 
+    writeText(lcd, string);
+}
+
