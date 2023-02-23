@@ -6,10 +6,6 @@
 
 #include "ant_lcd.h"
 
-/*
-Copyright (c) 2021, zadi15 (https://github.com/zadi15/)
-License can be found at picoLCD/LICENSE
-*/
 struct lcd_controller lcd_ctrl_1;
 lcd_t lcd_1;
 
