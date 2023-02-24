@@ -17,7 +17,7 @@ https://github.com/Bardia-Afshar/RP-Pico-LCD*
 
 Used KiCad 6.0
 
-![schema](https://github.com/Vitaris/Ant_LCD/blob/main/img/demo_schema_2_lcds.png)
+![schema](https://github.com/Vitaris/Ant_LCD/blob/main/img/schematics_two_displays.png)
 
 ## Binary
 
