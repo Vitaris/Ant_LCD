@@ -7,7 +7,6 @@ https://github.com/Bardia-Afshar/RP-Pico-LCD*
 ## Features
 * 4-bit interface
 * Multi-instance - Possibility of use of multiple displays
-
-## Work in progress...
+* Supports: float, int, char
 
 ![schema](https://github.com/Vitaris/Ant_LCD/blob/main/img/demo_schema.png)
