@@ -9,8 +9,9 @@ https://github.com/Bardia-Afshar/RP-Pico-LCD*
 * Multi-instance - Possibility of use of multiple displays
 * Supports: float, int, char
 
-## Ant lcd at work
-![real_demo](https://github.com/Vitaris/Ant_LCD/blob/main/img/ant_lcd_demo.gif)
+## Ant LCD lib at work
+![two_displays](https://github.com/Vitaris/Ant_LCD/blob/main/img/demo_two_displays.gif)
+![4x20_display](https://github.com/Vitaris/Ant_LCD/blob/main/img/demo_4x20_dispaly.gif)
 
 ## Schematic
 
