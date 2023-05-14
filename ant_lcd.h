@@ -40,7 +40,6 @@ SOFTWARE.
 #define LCD_2LINE 0x08  // Address for More Than 2 Line LCDs (For Example 4*20)
 #define DELAY 15  // Default Delay
 #define DELAY_5_MS 1
-#define DELAY_5_MS 1
 #define DELAY_250_uS 250
 
 /**
