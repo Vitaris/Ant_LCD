@@ -23,4 +23,4 @@ Used KiCad 6.0
 
 The repository contains a compiled binary sample. It should work according to the demo schema.
 
-https://github.com/Vitaris/Ant_LCD/blob/main/antLCD.uf2
+https://github.com/Vitaris/Ant_LCD/releases/download/1.1/antLCD.uf2
