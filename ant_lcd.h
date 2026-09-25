@@ -41,33 +41,24 @@ SOFTWARE.
 #define DELAY 15  // Default Delay
 #define DELAY_5_MS 1
 #define DELAY_250_uS 250
+#define LCD_NUM_BUF_SIZE 32  // Buffer size for int/float to text conversion
 
 /**
- * Structure that holds LCD instance Data, multiple instances are
- * posible using different structures for each controller
+ * Opaque handle to an LCD instance. The struct definition is private to
+ * ant_lcd.c, so callers can only hold and pass this handle, never access its
+ * fields. Obtain one from lcd_create() and release it with lcd_destroy().
  */
-struct lcd_controller {
-	uint8_t data[4];
-	uint8_t RS;
-	uint8_t RW;
-	uint8_t EN;
-	uint8_t COL;
-	uint8_t ROW;
-	uint8_t Xcurrent;
-	uint8_t Ycurrent;
-};
-
 typedef struct lcd_controller * lcd_t;
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 	/**
-	 * @brief Creates a new LCD controller
+	 * @brief Creates and initializes a new LCD controller
 	 *
-	 * Creates a LCD controller and initializes it�s outputs
+	 * Allocates an LCD instance and initializes its GPIO outputs. Release it
+	 * with lcd_destroy() when no longer needed.
 	 *
-	 * @param lcd LCD controller handle
 	 * @param RS RS pin number
 	 * @param RW RW pin number
 	 * @param EN EN pin number
@@ -78,10 +69,18 @@ extern "C" {
 	 * @param COL LCD columns
 	 * @param ROW LCD rows
 	 * 
-	 * @return returns a lcd_t controller handle
+	 * @return a new lcd_t handle, or NULL on allocation failure
 	 */
-	lcd_t lcd_create(lcd_t lcd, uint32_t RS, uint32_t RW, uint32_t EN, uint32_t D4, uint32_t D5,
+	lcd_t lcd_create(uint32_t RS, uint32_t RW, uint32_t EN, uint32_t D4, uint32_t D5,
  					uint32_t D6, uint32_t D7, uint32_t COL, uint32_t ROW);
+
+	/**
+	 * @brief Destroys an LCD controller created with lcd_create()
+	 * 
+	 * @param lcd LCD controller handle (NULL is ignored)
+	 * 
+	 */
+	void lcd_destroy(lcd_t lcd);
 
 	/**
 	 * @brief Init LCD controller
@@ -90,23 +89,6 @@ extern "C" {
 	 * 
 	 */
 	void lcd_init(lcd_t lcd);
-
-	/**
-	 * @brief A pulse to EN Pin
-	 * 
-	 * @param lcd LCD controller handle
-	 * 
-	 */
-	void e_blink(lcd_t lcd);
-
-	/**
-	 * @brief Command Data Transfer Function(4Bit Mode)
-	 * 
-	 * @param lcd LCD controller handle
-	 * @param cmd 4-bit command
-	 * 
-	 */
-	void command4bit(lcd_t lcd, uint8_t cmd);
 
 	/**
 	 * @brief Command Data Transfer Function

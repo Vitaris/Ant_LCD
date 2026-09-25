@@ -29,9 +29,26 @@ SOFTWARE.
 #include <stdlib.h>
 #include <stdio.h>
 
-lcd_t lcd_create(lcd_t lcd, uint32_t RS, uint32_t RW, uint32_t EN, uint32_t D4, uint32_t D5,
+struct lcd_controller {
+	uint8_t data[4];
+	uint8_t RS;
+	uint8_t RW;
+	uint8_t EN;
+	uint8_t COL;
+	uint8_t ROW;
+	uint8_t Xcurrent;
+	uint8_t Ycurrent;
+};
+
+lcd_t lcd_create(uint32_t RS, uint32_t RW, uint32_t EN, uint32_t D4, uint32_t D5,
  				uint32_t D6, uint32_t D7, uint32_t COL, uint32_t ROW)
 {
+	lcd_t lcd = malloc(sizeof(*lcd));
+	if (lcd == NULL)
+	{
+		return NULL;
+	}
+
 	lcd->data[0] = D4;
 	lcd->data[1] = D5;
 	lcd->data[2] = D6;
@@ -52,6 +69,7 @@ lcd_t lcd_create(lcd_t lcd, uint32_t RS, uint32_t RW, uint32_t EN, uint32_t D4, 
     gpio_set_dir(lcd->RS, GPIO_OUT);
 	gpio_init(lcd->RW);
     gpio_set_dir(lcd->RW, GPIO_OUT);
+	gpio_put(lcd->RW, 0);  // keep in write mode; busy flag is never read
 	gpio_init(lcd->EN);
     gpio_set_dir(lcd->EN, GPIO_OUT);
 	
@@ -66,7 +84,12 @@ lcd_t lcd_create(lcd_t lcd, uint32_t RS, uint32_t RW, uint32_t EN, uint32_t D4, 
 	return lcd;
 }
 
-void e_blink(lcd_t lcd)
+void lcd_destroy(lcd_t lcd)
+{
+	free(lcd);
+}
+
+static void e_blink(lcd_t lcd)
 {
 	gpio_put(lcd->EN, 1);
 	busy_wait_us(DELAY);
@@ -74,7 +97,7 @@ void e_blink(lcd_t lcd)
 	busy_wait_us(DELAY);
 }
 
-void command4bit(lcd_t lcd, uint8_t cmd)
+static void command4bit(lcd_t lcd, uint8_t cmd)
 {
 	gpio_put(lcd->data[0], (cmd & 0x01) >> 0);
 	gpio_put(lcd->data[1], (cmd & 0x02) >> 1);
@@ -161,19 +184,17 @@ void writeText(lcd_t lcd, char string[])
 void int2LCD(lcd_t lcd, uint8_t x, uint8_t y, uint8_t max_length, int number)
 {
     gotoxy(lcd, x, y); 
-    char* str;
-    asprintf (&str, "%*i", max_length, number);
+    char str[LCD_NUM_BUF_SIZE];
+    snprintf(str, sizeof(str), "%*i", max_length, number);
     writeText(lcd, str);
-    free(str);
 }
 
 void float2LCD(lcd_t lcd, uint8_t x, uint8_t y, uint8_t max_length, float number)
 {
     gotoxy(lcd, x, y); 
-    char* str;
-    asprintf (&str, "%*.2f", max_length, number);
+    char str[LCD_NUM_BUF_SIZE];
+    snprintf(str, sizeof(str), "%*.2f", max_length, number);
     writeText(lcd, str);
-    free(str);
 }
 
 void string2LCD(lcd_t lcd, uint8_t x, uint8_t y, char string[])
